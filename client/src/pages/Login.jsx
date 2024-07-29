@@ -1,13 +1,14 @@
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect } from "react";
+import { useForm } from 'react-hook-form'
 import { useNavigate } from "react-router-dom";
-import Textbox from "../components/common/Textbox";
-import Button from "../components/common/Button";
+import Textbox from "../components/Textbox";
+import Button from "../components/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import { useLoginMutation } from "../redux/slices/api/authApiSlice";
 import { setCredentials } from "../redux/slices/authSlice";
 import logo from "../assets/paskr-logo.png";
+import background from "../assets/gradient-background.jpg"; // Import the background image
 
 const Login = () => {
   const { user } = useSelector((state) => state.auth);
@@ -19,40 +20,42 @@ const Login = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [login] = useLoginMutation();
+  const [login, {isLoading}] = useLoginMutation();
 
   const submitHandler = async (data) => {
-    try {
+    try{
       const result = await login(data).unwrap();
-      dispatch(setCredentials(result));
+      dispatch(setCredentials(result))
       navigate("/");
-    } catch (err) {
-      console.log(err);
+    }
+    catch(err){
+      console.log(err)
       toast.error(err?.data?.message || err.error);
+      
     }
   };
 
   useEffect(() => {
     user && navigate("/");
-  }, [navigate, user]);
+  }, [user]);
 
   return (
-    <div className="w-full min-h-screen flex items-center justify-center flex-col lg:flex-row bg-[#f3f4f6]">
+    <div
+      className="w-full min-h-screen flex items-center justify-center flex-col lg:flex-row bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: `url(${background})` }}
+    >
       <div className="w-full md:w-auto flex gap-0 md:gap-40 flex-col md:flex-row items-center justify-center">
         <div className="w-full md:w-3/3 p-4 md:p-1 flex flex-col justify-center items-center">
           <form
             onSubmit={handleSubmit(submitHandler)}
             className="form-container w-full md:w-[400px] flex flex-col gap-y-8 bg-white px-10 pt-14 pb-14"
           >
-            <div className="">
-              <img src={logo} alt="Paskr Logo" className="scale-75" />
-              <p className="text-center text-base text-gray-700 ">
-                Task Management App
-              </p>
+            <div className="flex justify-center">
+              <img src={logo} alt="logo" className="w-40" />
             </div>
             <div className="flex flex-col gap-y-5">
               <Textbox
-                placeholder="email@example.com"
+                placeholder="Enter Email Address"
                 type="email"
                 name="email"
                 label="Email Address"
@@ -84,6 +87,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
+}
 
-export default Login;
+export default Login

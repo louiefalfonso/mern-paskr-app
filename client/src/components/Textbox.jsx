@@ -1,13 +1,12 @@
-import React from "react";
+import React from 'react'
 import clsx from "clsx";
-import PropTypes from "prop-types";
 
 const Textbox = React.forwardRef(
   ({ type, placeholder, label, className, register, name, error }, ref) => {
     return (
-      <div className="w-full flex flex-col gap-1">
+      <div className='w-full flex flex-col gap-1'>
         {label && (
-          <label htmlFor={name} className="text-slate-800">
+          <label htmlFor={name} className='text-slate-800'>
             {label}
           </label>
         )}
@@ -26,23 +25,10 @@ const Textbox = React.forwardRef(
           />
         </div>
         {error && (
-          <span className="text-xs text-[#f64949fe] mt-0.5 ">{error}</span>
+          <span className='text-xs text-[#f64949fe] mt-0.5 '>{error}</span>
         )}
       </div>
     );
   }
 );
-
-Textbox.propTypes = {
-  type: PropTypes.string.isRequired,
-  placeholder: PropTypes.string,
-  label: PropTypes.string,
-  className: PropTypes.string,
-  register: PropTypes.object,
-  name: PropTypes.string.isRequired,
-  error: PropTypes.string,
-};
-
-Textbox.displayName = "Textbox";
-
 export default Textbox;

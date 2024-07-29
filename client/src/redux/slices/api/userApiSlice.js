@@ -1,6 +1,7 @@
 import { apiSlice } from "../apiSlice";
 const USER_URL = "/user";
 
+
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllUsers: builder.query({
@@ -37,9 +38,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const {
-  useGetAllUsersQuery,
-  useDeleteUserMutation,
-  useUpdateUserMutation,
-  useUserActionMutation,
+export const { useGetAllUsersQuery, useDeleteUserMutation, useUpdateUserMutation, useUserActionMutation
 } = userApiSlice;
+

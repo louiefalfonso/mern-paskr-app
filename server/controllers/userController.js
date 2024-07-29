@@ -91,3 +91,12 @@ export const logoutUser = async (req, res) => {
     return res.status(400).json({ status: false, message: error.message });
   }
 };
+export const getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find().select("name title role email isActive");
+    res.status(200).json(users);
+  } catch (error) {
+    console.log(error);
+    return res.status(400).json({ status: false, message: error.message });
+  }
+};

@@ -1,5 +1,4 @@
 import express from "express";
-import { isAdminRoute, protectRoute } from "../middlewares/authMiddleware.js";
 import {
   loginUser,
   logoutUser,

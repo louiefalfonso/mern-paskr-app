@@ -10,11 +10,11 @@ export default function ConfirmatioDialog({
   msg,
   setMsg = () => {},
   onClick = () => {},
-  type = "delete",
+  type = "Delete",
   setType = () => {},
 }) {
   const closeDialog = () => {
-    setType("delete");
+    setType("Delete");
     setMsg(null);
     setOpen(false);
   };

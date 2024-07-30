@@ -33,7 +33,7 @@ const AddUser = ({ open, setOpen, userData }) => {
           password: data.email,
         }).unwrap();
         window.location.reload();
-        toast.success("User updated successfully");
+        toast.success("User Updated Successfully");
         if (userData?._id === user._id) {
           dispatch(setCredentials(...result.user));
         }
@@ -42,6 +42,7 @@ const AddUser = ({ open, setOpen, userData }) => {
           ...data,
           password: data.email,
         }).unwrap();
+        window.location.reload();
         toast.success("Added New User Successfully");
       }
       setTimeout(() => {

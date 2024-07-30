@@ -56,7 +56,7 @@ export const taskApiSlice = apiSlice.injectEndpoints({
       }),
     }),
     postTaskActivity: builder.mutation({
-      query: (data, id) => ({
+      query: (data) => ({
         url: `${TASKS_URL}/activity/${data.id}`,
         method: "POST",
         body: data,

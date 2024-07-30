@@ -2,7 +2,7 @@ import React from 'react'
 import { BGS, PRIOTITYSTYELS, TASK_TYPE} from "../utils";
 import {MdKeyboardArrowDown,MdKeyboardArrowUp,MdKeyboardDoubleArrowUp,} from "react-icons/md";
 import moment from "moment";
-import { summary } from "../assets/data";
+
 import clsx from "clsx";
 import UserInfo from './UserInfo';
 

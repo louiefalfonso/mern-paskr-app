@@ -1,20 +1,16 @@
 import React, { useState } from "react";
-import { BiMessageAltDetail } from "react-icons/bi";
-import {
-  MdAttachFile,
-  MdKeyboardArrowDown,
-  MdKeyboardArrowUp,
-  MdKeyboardDoubleArrowUp,
-} from "react-icons/md";
+import {MdKeyboardArrowDown,MdKeyboardArrowUp,MdKeyboardDoubleArrowUp,} from "react-icons/md";
 import { toast } from "sonner";
 import { BGS, PRIOTITYSTYELS, TASK_TYPE, formatDate } from "../../utils";
+import { useUpdateTaskMutation } from "../../redux/slices/api/taskApiSlice";
+import { useTrashTaskMutation } from "../../redux/slices/api/taskApiSlice";
+import { FaTrashAlt, FaEdit } from "react-icons/fa";
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import { useNavigate } from "react-router-dom";
 import clsx from "clsx";
-import { FaList } from "react-icons/fa";
 import UserInfo from "../UserInfo";
 import Button from "../Button";
 import ConfirmatioDialog from "../ConfirmatioDialog";
-import { useGetAllTaskQuery, useUpdateTaskMutation } from "../../redux/slices/api/taskApiSlice";
-import { useTrashTaskMutation } from "../../redux/slices/api/taskApiSlice";
 import AddTask from "./AddTask";
 
 const ICONS = {
@@ -29,36 +25,35 @@ const Table = ({ tasks }) => {
   const [openEdit, setOpenEdit] = useState(false);
   const [trashTask, refetch] = useTrashTaskMutation();
   const [editTask] = useUpdateTaskMutation();
+  const navigate = useNavigate();
 
   const deleteClicks = (id) => {
     setSelected(id);
     setOpenDialog(true);
   };
-  const editClicks = (id) =>{
+  const editClicks = (id) => {
     setSelected(id);
     setOpenDialog(true);
   };
-  const editTaskHandler = async(el) => {
+  const editTaskHandler = async (el) => {
     setSelected(el);
     setOpenEdit(true);
-
   };
 
-
-  const deleteHandler = async(id) => {
+  const deleteHandler = async (id) => {
     try {
       const result = await trashTask({
         id: selected,
         isTrash: "trash",
-      }).unwrap()
+      }).unwrap();
       toast.success(result?.message);
-      setTimeout(()=>{
+      setTimeout(() => {
         setOpenDialog(false);
         window.location.reload();
-      },500);
+      }, 500);
     } catch (error) {
-      console.error(err);
-      toast.error(err?.data?.message || err.error);
+      console.error(error);
+      toast.error(error?.data?.message || error.error);
     }
   };
 
@@ -121,17 +116,22 @@ const Table = ({ tasks }) => {
 
       <td className="py-2 flex gap-2 md:gap-4 justify-end">
         <Button
+          className="text-slate-950 hover:text-slate-950 sm:px-0 text-sm md:text-base"
+          type="button"
+          onClick={() => navigate(`/task/${task._id}`)}
+          icon={<FaMagnifyingGlass />}
+        />
+        <Button
           className="text-blue-600 hover:text-blue-500 sm:px-0 text-sm md:text-base"
-          label="Edit"
           type="button"
           onClick={() => editTaskHandler(task)}
+          icon={<FaEdit />}
         />
-
         <Button
           className="text-red-700 hover:text-red-500 sm:px-0 text-sm md:text-base"
-          label="Delete"
           type="button"
           onClick={() => deleteClicks(task._id)}
+          icon={<FaTrashAlt />}
         />
       </td>
     </tr>

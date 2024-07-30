@@ -1,18 +1,11 @@
-import clsx from "clsx";
 import React, { useState } from "react";
-import {
-  MdAttachFile,
-  MdKeyboardArrowDown,
-  MdKeyboardArrowUp,
-  MdKeyboardDoubleArrowUp,
-} from "react-icons/md";
+import {MdAttachFile,MdKeyboardArrowDown,MdKeyboardArrowUp,MdKeyboardDoubleArrowUp,} from "react-icons/md";
 import { useSelector } from "react-redux";
 import { BGS, PRIOTITYSTYELS, TASK_TYPE, formatDate } from "../utils";
 import { BiMessageAltDetail } from "react-icons/bi";
-import { FaList } from "react-icons/fa";
 import UserInfo from "./UserInfo";
-import { IoMdAdd } from "react-icons/io";
 import TaskDialog from "./task/TaskDialog";
+import clsx from "clsx";
 
 const ICONS = {
   high: <MdKeyboardDoubleArrowUp />,

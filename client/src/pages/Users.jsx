@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import Title from "../components/Title";
 import Button from "../components/Button";
 import { IoMdAdd } from "react-icons/io";
-import { summary } from "../assets/data";
 import { getInitials } from "../utils";
+import { toast } from "sonner";
 import clsx from "clsx";
 import ConfirmatioDialog, { UserAction } from "../components/ConfirmatioDialog";
 import AddUser from "../components/AddUser";
-import { toast } from "sonner";
 import { useDeleteUserMutation, useGetAllUsersQuery, useUserActionMutation} from "../redux/slices/api/userApiSlice";
+import { FaTrashAlt, FaEdit } from "react-icons/fa";
 
 const Users = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -34,14 +34,13 @@ const Users = () => {
   };
   const deleteHandler = async (id) => {
     try {
-      await deleteUser(id);
+      const result = await deleteUser(id);
       refetch();
+      window.location.reload();
       toast.success("Deleted Successfully");
-      setSelected(null);
       setTimeout(() => {
         setOpenDialog(false);
-        window.location.reload();
-      }, 500);
+      }, 1500);
     } catch (error) {
       console.error("Error during deletion:", error);
       toast.error("Failed to delete user. Please try again.");
@@ -59,7 +58,7 @@ const Users = () => {
       setSelected(null);
       setTimeout(() => {
         setOpenAction(false);
-      }, 500);
+      }, 1500);
       
     } catch (err) {
       console.log(err);
@@ -79,7 +78,7 @@ const Users = () => {
 
   const TableHeader = () => (
     <thead className="border-b border-gray-300">
-      <tr className="text-black text-left">
+      <tr className="text-black text-center">
         <th className="py-2">Full Name</th>
         <th className="py-2">Title</th>
         <th className="py-2">Email</th>
@@ -92,7 +91,7 @@ const Users = () => {
   const TableRow = ({ user }) => (
     <tr className="border-b border-gray-200 text-gray-600 hover:bg-gray-400/10">
       <td className="p-2">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <div className="w-9 h-9 rounded-full text-white flex items-center justify-center text-sm bg-emerald-500">
             <span className="text-xs md:text-sm text-center">
               {getInitials(user.name)}
@@ -103,7 +102,7 @@ const Users = () => {
       </td>
 
       <td className="p-2">{user.title}</td>
-      <td className="p-2">{user.email || "user.emal.com"}</td>
+      <td className="p-2">{user.email || "user.email.com"}</td>
       <td className="p-2">{user.role}</td>
 
       <td>
@@ -121,15 +120,15 @@ const Users = () => {
       <td className="p-2 flex gap-4 justify-end">
         <Button
           className="text-blue-600 hover:text-blue-500 font-semibold sm:px-0"
-          label="Edit"
           type="button"
           onClick={() => editClick(user)}
+          icon={<FaEdit />}
         />
         <Button
           className="text-red-700 hover:text-red-500 font-semibold sm:px-0"
-          label="Delete"
           type="button"
           onClick={() => deleteClick(user?._id)}
+          icon={<FaTrashAlt />}
         />
       </td>
     </tr>
@@ -139,7 +138,7 @@ const Users = () => {
     <>
       <div className="w-full md:px-1 px-0 mb-6">
         <div className="flex items-center justify-between mb-8">
-          <Title title="  Team Members" />
+          <Title title="  Team Members"/>
           <Button
             label="Add New User"
             icon={<IoMdAdd className="text-lg" />}
@@ -152,7 +151,7 @@ const Users = () => {
           <div className="overflow-x-auto">
             <table className="w-full mb-5">
               <TableHeader />
-              <tbody>
+              <tbody className="text-center">
                 {data &&
                   data.map((user, index) => (
                     <TableRow key={index} user={user} />

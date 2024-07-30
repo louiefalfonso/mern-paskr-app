@@ -13,9 +13,7 @@ import Dashboard from "./pages/Dashboard";
 import Tasks from "./pages/Task";
 import Users from "./pages/Users";
 import Trash from "./pages/Trash";
-import Task from "./pages/Task";
 import TaskDetails from "./pages/TaskDetails";
-
 
 function Layout() {
   const { user } = useSelector((state) => state.auth);
@@ -100,6 +98,11 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/users" element={<Users />} />
           <Route path="/tasks" element={<Tasks />} />
+          <Route path="/completed/:status" element={<Tasks />} />
+          <Route path="/in-progress/:status" element={<Tasks />} />
+          <Route path="/todo/:status" element={<Tasks />} />
+          <Route path="/task/:id" element={<TaskDetails />} />
+          <Route path="/trashed" element={<Trash />} />
         </Route>
         <Route path="/login" element={<Login />} />
       </Routes>

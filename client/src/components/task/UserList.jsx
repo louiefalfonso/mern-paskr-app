@@ -18,12 +18,13 @@ const UserList = ({ setTeam, team }) => {
     refetch();
   };
   useEffect(() => {
-    if (team?.length < 1) {
-      data && setSelectedUsers([data[1]]);
-    } else {
-      setSelectedUsers(team);
+    if (data && team?.length < 1) {
+      setSelectedUsers([data[1]]);
+    } else if (team?.length > 0) {
+      const selected = data?.filter((user) => team.includes(user._id));
+      setSelectedUsers(selected);
     }
-  }, []);
+  }, [data, team]);
 
   return (
     <div>
@@ -36,9 +37,12 @@ const UserList = ({ setTeam, team }) => {
         <div className="relative mt-1">
           <ListboxButton className="relative w-full cursor-default rounded bg-white pl-3 pr-10 text-left px-3 py-2.5 2xl:py-3 border border-gray-300 sm:text-sm">
             <span className="block truncate">
-              {selectedUsers?.map((user) => user.name).join(", ")}
+              {selectedUsers?.length === 0 ? (
+                <span className="text-gray-400">Select Team Member</span>
+              ) : (
+                selectedUsers?.map((user) => user.name).join(", ")
+              )}
             </span>
-
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
               <BsChevronExpand
                 className="h-5 w-5 text-gray-400"

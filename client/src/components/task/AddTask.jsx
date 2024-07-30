@@ -7,11 +7,7 @@ import UserList from "./UserList";
 import SelectList from "../SelectList";
 import { BiImages } from "react-icons/bi";
 import Button from "../Button";
-
-import {
-  useCreateTaskMutation,
-  useUpdateTaskMutation,
-} from "../../redux/slices/api/taskApiSlice";
+import { useCreateTaskMutation,useUpdateTaskMutation,} from "../../redux/slices/api/taskApiSlice";
 import { toast } from "react-toastify";
 import { dateFormatter } from "../../utils";
 
@@ -40,32 +36,27 @@ const AddTask = ({ open, setOpen, task }) => {
   const [updateTask, { isLoading: isUpdating }] = useUpdateTaskMutation();
   const URLS = task?.assets ? [...task.assets] : [];
 
- const submitHandler = async (data) => {
-   
-
-   try {
-     const newData = {
-       ...data,
-       team,
-       stage,
-       priority,
-       assets: [...URLS, ...uploadedFileURLs],
-     };
-     const result = task?.id
-       ? await updateTask({ ...newData, _id: task?._id}).unwrap()
-       : await createTask(newData).unwrap();
-       toast.success("Added New Task Successfully");
-     setTimeout(() => {
-       setOpen(false);
-     }, 500);
-   } catch (error) {
-     console.log(error);
-     toast.error(error?.data?.message || error.error);
-   }
- };
-
-  const handleSelect = (e) => {
-    setAssets(e.target.files);
+  const submitHandler = async (data) => {
+    
+    try {
+      const newData = {
+        ...data,
+        team,
+        stage,
+        priority,
+        assets: [...URLS, ...uploadedFileURLs],
+      };
+      const result = task?.id
+        ? await updateTask({ ...newData, _id: task?._id }).unwrap()
+        : await createTask(newData).unwrap();
+      toast.success("Added New Task Successfully");
+      setTimeout(() => {
+        setOpen(false);
+      }, 500);
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.data?.message || error.error);
+    }
   };
 
   
@@ -122,24 +113,6 @@ const AddTask = ({ open, setOpen, task }) => {
               selected={priority}
               setSelected={setPriority}
             />
-
-            <div className="w-full flex items-center justify-center mt-4">
-              <label
-                className="flex items-center gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer my-4"
-                htmlFor="imgUpload"
-              >
-                <input
-                  type="file"
-                  className="hidden"
-                  id="imgUpload"
-                  onChange={(e) => handleSelect(e)}
-                  accept=".jpg, .png, .jpeg"
-                  multiple={true}
-                />
-                <BiImages />
-                <span>Add Assets</span>
-              </label>
-            </div>
           </div>
 
           <div className="py-6 sm:flex sm:flex-row-reverse gap-4">

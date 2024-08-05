@@ -18,7 +18,7 @@ router.put("/update/:id", protectRoute, isAdminRoute, updateTask);
 router.get("/alltasks", protectRoute, isAdminRoute, getTasks);
 
 router.post("/activity/:id", protectRoute, postTaskActivity);
-router.get("/dashboard", protectRoute, isAdminRoute, dashboardStatistics);
+router.get("/dashboard", protectRoute, dashboardStatistics);
 router.get("/", protectRoute, getTasks);
 router.get("/:id", protectRoute, getTask);
 

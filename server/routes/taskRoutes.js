@@ -19,7 +19,6 @@ router.get("/alltasks",getTasks);
 
 router.post("/activity/:id", protectRoute, postTaskActivity);
 router.get("/",  getTasks);
-router.get("/:id", getTask);
 
 router.get("/dashboard", protectRoute, (req, res, next) => {
   try {
@@ -31,7 +30,7 @@ router.get("/dashboard", protectRoute, (req, res, next) => {
   }
 });
 
-
+router.get("/:id", getTask);
 router.put("/:id", protectRoute, isAdminRoute, trashTask);
 
 router.delete(

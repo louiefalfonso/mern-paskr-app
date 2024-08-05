@@ -132,7 +132,7 @@ export const getTasks = async (req, res) => {
 
 export const dashboardStatistics = async (req, res) => {
   try {
-    const { userId, isAdmin } = req.user;
+    const { userId } = req.user;
 
     const allTasks = isAdmin
       ? await Task.find({

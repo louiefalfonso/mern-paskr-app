@@ -15,12 +15,12 @@ const router = express.Router();
 
 router.post("/create", protectRoute, isAdminRoute, createTask);
 router.put("/update/:id", protectRoute, isAdminRoute, updateTask);
-router.get("/alltasks", protectRoute, isAdminRoute, getTasks);
+router.get("/alltasks", isAdminRoute, getTasks);
 
 router.post("/activity/:id", protectRoute, postTaskActivity);
-router.get("/dashboard",  protectRoute, isAdminRoute, dashboardStatistics);
-router.get("/", protectRoute, isAdminRoute, getTasks);
-router.get("/:id", protectRoute, isAdminRoute, getTask);
+router.get("/dashboard", isAdminRoute, dashboardStatistics);
+router.get("/", getTasks);
+router.get("/:id", getTask);
 
 
 router.put("/:id", protectRoute, isAdminRoute, trashTask);

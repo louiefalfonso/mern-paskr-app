@@ -18,9 +18,18 @@ router.put("/update/:id", protectRoute, isAdminRoute, updateTask);
 router.get("/alltasks",getTasks);
 
 router.post("/activity/:id", protectRoute, postTaskActivity);
-router.get("/dashboard", dashboardStatistics);
 router.get("/",  getTasks);
 router.get("/:id", getTask);
+
+router.get("/dashboard", protectRoute, (req, res, next) => {
+  try {
+    const stats = dashboardStatistics(req.user);
+    res.json(stats);
+  } catch (error) {
+    console.error(error);
+    res.status(400).json({ message: "Error fetching dashboard statistics" });
+  }
+});
 
 
 router.put("/:id", protectRoute, isAdminRoute, trashTask);

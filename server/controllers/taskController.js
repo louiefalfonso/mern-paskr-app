@@ -134,6 +134,12 @@ export const dashboardStatistics = async (req, res) => {
   try {
     const { userId } = req.user;
 
+    if (!isAdmin) {
+      return res
+        .status(401)
+        .json({ status: false, message: "Not authorized. Try login again." });
+    }
+
     const allTasks = isAdmin
       ? await Task.find({
           isTrashed: false,

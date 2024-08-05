@@ -19,17 +19,7 @@ router.get("/alltasks", protectRoute, isAdminRoute, getTasks);
 
 router.post("/activity/:id", protectRoute, postTaskActivity);
 router.get("/", getTasks);
-
-router.get("/dashboard", protectRoute, (req, res, next) => {
-  try {
-    const stats = dashboardStatistics(req.user);
-    res.json(stats);
-  } catch (error) {
-    console.error(error);
-    res.status(400).json({ message: "Error fetching dashboard statistics" });
-  }
-});
-
+router.get("/dashboard", dashboardStatistics);
 router.get("/:id", getTask);
 
 router.put("/:id", protectRoute, isAdminRoute, trashTask);

@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 app.use(cors({
-    origin: ["https://mern-paskr-app.onrender.com,"https://paskrtaskpp.netlify.app/"],
+    origin: ["https://mern-paskr-app.onrender.com","https://paskrtaskpp.netlify.app/"],
     methods: ["GET", "POST", "DELETE", "PUT"],
     credentials: true,
   })

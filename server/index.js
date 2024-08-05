@@ -15,25 +15,14 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 
-const corsOptions = {
-  origin: ["https://mern-paskr-app.onrender.com","https://paskrtaskpp.netlify.app/"],
-  credentials: true,  
-  optionSuccessStatus: 200,
-  methods: ["GET", "POST", "DELETE", "PUT"],
-  preflightContinue: true,
-  allowedHeaders: ["Content-Type", "Authorization"],
-  exposedHeaders: ["Authorization"],
-  credentials: true,
-}
-
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  const allowedOrigin = ["https://mern-paskr-app.onrender.com/","https://paskrtaskpp.netlify.app/"];
+  res.setHeader("Access-Control-Allow-Origin", allowedOrigin);
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
   next();
 });
-
-app.use(cors(corsOptions));
 
 app.use(cors({
     origin: ["https://mern-paskr-app.onrender.com","https://paskrtaskpp.netlify.app/"],

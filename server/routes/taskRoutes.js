@@ -15,10 +15,10 @@ const router = express.Router();
 
 router.post("/create", createTask);
 router.put("/update/:id", updateTask);
-router.get("/alltasks", getTasks);
+router.get("/alltasks", protectRoute, getTasks);
 
 router.post("/activity/:id", postTaskActivity);
-router.get("/dashboard", dashboardStatistics);
+router.get("/dashboard", protectRoute, dashboardStatistics);
 router.get("/", getTasks);
 router.get("/:id", getTask);
 

@@ -7,18 +7,25 @@ const protectRoute = async (req, res, next) => {
 
     if (token) {
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      console.log("decodedToken:", decodedToken);
 
       const resp = await User.findById(decodedToken.userId).select(
         "isAdmin email"
       );
+      console.log("resp:", resp);
 
-      req.user = {
-        email: resp.email,
-        isAdmin: resp.isAdmin,
-        userId: decodedToken.userId,
-      };
-
-      next();
+      if (resp) {
+        req.user = {
+          email: resp.email,
+          isAdmin: resp.isAdmin,
+          userId: decodedToken.userId,
+        };
+        next();
+      } else {
+        return res
+          .status(401)
+          .json({ status: false, message: "User not found" });
+      }
     } else {
       return res
         .status(401)

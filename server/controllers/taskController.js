@@ -132,32 +132,14 @@ export const getTasks = async (req, res) => {
 
 export const dashboardStatistics = async (req, res) => {
   try {
-    const { userId } = req.user;
-
-    if (!isAdmin) {
-      return res
-        .status(401)
-        .json({ status: false, message: "Not authorized. Try login again." });
-    }
-
-    const allTasks = isAdmin
-      ? await Task.find({
-          isTrashed: false,
-        })
-          .populate({
-            path: "team",
-            select: "name role title email",
-          })
-          .sort({ _id: -1 })
-      : await Task.find({
-          isTrashed: false,
-          team: { $all: [userId] },
-        })
-          .populate({
-            path: "team",
-            select: "name role title email",
-          })
-          .sort({ _id: -1 });
+    const allTasks = await Task.find({
+      isTrashed: false,
+    })
+      .populate({
+        path: "team",
+        select: "name role title email",
+      })
+      .sort({ _id: -1 });
 
     const users = await User.find({ isActive: true })
       .select("name title role isAdmin createdAt")
@@ -194,7 +176,7 @@ export const dashboardStatistics = async (req, res) => {
     const summary = {
       totalTasks,
       last10Task,
-      users: isAdmin ? users : [],
+      users: [],
       tasks: groupTaskks,
       graphData: groupData,
     };
@@ -209,6 +191,8 @@ export const dashboardStatistics = async (req, res) => {
     return res.status(400).json({ status: false, message: error.message });
   }
 };
+
+
 export const getTask = async (req, res) => {
   try {
     const { id } = req.params;

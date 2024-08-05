@@ -8,17 +8,17 @@ import {
   postTaskActivity,
   dashboardStatistics,
   trashTask,
-  deleteRestoreTask
+  deleteRestoreTask,
 } from "../controllers/taskController.js";
 
 const router = express.Router();
 
 router.post("/create", protectRoute, isAdminRoute, createTask);
 router.put("/update/:id", protectRoute, isAdminRoute, updateTask);
-router.get("/alltasks",getTasks);
+router.get("/alltasks", protectRoute, isAdminRoute, getTasks);
 
 router.post("/activity/:id", protectRoute, postTaskActivity);
-router.get("/",  getTasks);
+router.get("/", getTasks);
 
 router.get("/dashboard", protectRoute, (req, res, next) => {
   try {
@@ -31,6 +31,7 @@ router.get("/dashboard", protectRoute, (req, res, next) => {
 });
 
 router.get("/:id", getTask);
+
 router.put("/:id", protectRoute, isAdminRoute, trashTask);
 
 router.delete(
@@ -40,4 +41,4 @@ router.delete(
   deleteRestoreTask
 );
 
-export default router
+export default router;

@@ -132,22 +132,14 @@ export const getTasks = async (req, res) => {
 
 export const dashboardStatistics = async (req, res) => {
   try {
-     const { userId } = req.user;
-    
      const allTasks = await Task.find({
-       isTrashed: false,
-       team: { $all: [userId] },
-     })
-       .populate({
-         path: "team",
-         select: "name role title email",
-       })
-       .sort({ _id: -1 });
-
-     const users = await User.find({ isActive: true })
-       .select("name title role isAdmin createdAt")
-       .limit(10)
-       .sort({ _id: -1 });
+      isTrashed: false,
+    })
+      .populate({
+        path: "team",
+        select: "name role title email",
+      })
+      .sort({ _id: -1 });
 
     //   group task by stage and calculate counts
     const groupTaskks = allTasks.reduce((result, task) => {

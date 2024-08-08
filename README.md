@@ -4,7 +4,7 @@
 
 ## Overview
 
-PASKR is a task management application built with the MERN stack (MongoDB, Express, React, Node.js). 
+This is a task management application built with the MERN stack (MongoDB, Express, React, Node.js). 
 It offers a clean, intuitive interface for creating, managing, and tracking tasks. Leveraging the power of Headless UI and Tailwind CSS, PASKR delivers a modern, responsive user experience.
 
 ### Features

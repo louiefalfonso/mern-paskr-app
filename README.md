@@ -21,3 +21,9 @@ It offers a clean, intuitive interface for creating, managing, and tracking task
 * **Frontend:** React, Redux Toolkit, Headless UI, Tailwind CSS
 * **Backend:** Node.js, Express, MongoDB
 * **Deployment:** Netlify, Render
+
+* ### Demo Login:
+https://paskrtaskpp.netlify.app/login<br/>
+email: manageradmin@paskr.com<br/>
+password: 87TupR5SvUlNtFY8<br/>
+
